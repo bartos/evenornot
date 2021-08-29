@@ -8,56 +8,54 @@
     android:gravity="center"
     android:orientation="vertical"
     >
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"        >
-
-<!--        android:theme="@style/selectedResult"-->
+        android:padding="10dp"
+    >
         <TextView
             android:id="@+id/labelEven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_even" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_even_odd_spacer" />
-
+            android:text="@string/label_even"
+            android:textSize="25sp"
+            android:textColor="?colorSecondary"
+            android:visibility="invisible"
+        />
         <TextView
             android:id="@+id/labelOdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_odd" />
+            android:text="@string/label_odd"
+            android:textSize="25sp"
+            android:textColor="?colorPrimary"
+            android:visibility="invisible"
+        />
     </LinearLayout>
-
         <EditText
-        android:id="@+id/theNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:imeOptions="actionDone"
-        android:inputType="numberSigned"
-        android:maxLength="6"
-        android:text="6"
-        android:textSize="90dp"
-
-            />
-
+            android:id="@+id/theNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned"
+            android:maxLength="6"
+            android:textSize="90sp"
+            android:autofillHints="phone"
+            android:hint="@string/the_number_hint"
+        />
     <Button
         android:onClick="randomizer"
         android:id="@+id/button_randomize"
         android:text="@string/btn_randomize"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+    />
     <Button
         android:id="@+id/button_check"
         android:onClick="checkTheNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_check" />
-
-
+        android:text="@string/btn_check"
+    />
 </LinearLayout>

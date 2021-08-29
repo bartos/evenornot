@@ -3,19 +3,16 @@ package com.ds.noactiv
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
-import android.webkit.WebSettings
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.w3c.dom.Text
 import kotlin.math.pow
 import kotlin.random.Random
 
@@ -37,46 +34,23 @@ class MainActivity : AppCompatActivity() {
         labelEven = findViewById(R.id.labelEven)
         labelOdd = findViewById(R.id.labelOdd)
         requestQueue = Volley.newRequestQueue(this)
+
     }
 
     fun randomizer(view: android.view.View) {
-
+        Log.d("randomizer","called by :${view.id}")
         val valueLen = 10.0.pow(Random.nextInt(1, 6)).toInt()
         val nextValue = Random.nextInt(0, 999999/valueLen)
-
         theNumber.setText("$nextValue")
     }
 
-    private fun setResults(isEven: Boolean, ad: String? = null){
+    private fun setResults(even: Boolean, ad: String? = null){
+
         if(ad!=null && ad.isNotEmpty() ) {
-            Toast.makeText(this, ad, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ad, Toast.LENGTH_LONG).show()
         }
-
-
-//            <item name="android:textSize">25dp</item>
-//            <item name="android:textColor">@color/purple_500</item>
-//
-//
-//            <item name="android:textSize">15dp</item>
-//            <item name="android:textColor">@color/teal_700</item>
-        val activeColor = ContextCompat.getColor(this, R.color.purple_500);
-        val nonActiveColor = ContextCompat.getColor(this, R.color.teal_700);
-        if(isEven){
-            labelEven.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25f)
-            labelEven.setTextColor(activeColor)
-            labelOdd.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f)
-            labelOdd.setTextColor(nonActiveColor)
-
-
-        }else
-        {
-            labelEven.setTextColor(nonActiveColor)
-            labelEven.setTextSize(TypedValue.COMPLEX_UNIT_DIP,15f)
-            labelOdd.setTextColor(activeColor)
-            labelOdd.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25f)
-        }
-
-
+        labelEven.visibility =  if (even) VISIBLE else GONE
+        labelOdd.visibility =  if (!even) VISIBLE else GONE
     }
 
     /**
@@ -84,28 +58,40 @@ class MainActivity : AppCompatActivity() {
      */
     private fun isEven(x: Int): Boolean = x % 2 == 0
 
-
+    /**
+     * Verify if the number is even or odd.
+     * Using external RESTapi.
+     */
     fun checkTheNumber(view: android.view.View) {
+        Log.d("check", "method called by :${view.id}")
 
-        val value = "${theNumber.text}".toInt()
-        val apiUrl = "$url$value"
-        Log.d("check","ApiUrl: $apiUrl")
+        if(theNumber.text.isEmpty()){
+            Log.d("check","Error: empty number value.")
+            Toast.makeText(this, getString(R.string.empty_number_value), Toast.LENGTH_LONG).show()
+            return
+        }
+        //make integer value from textView
+        val numberValue = "${theNumber.text}".toInt()
+        if (numberValue <0){
+            Log.d("check","Error: negative value input.")
+            Toast.makeText(this, "Only positive values are supported.", Toast.LENGTH_LONG).show()
+            //TODO Check if api can support negatives in enterprise, add token in settings activity
+            return
+        }
+        val apiUrl = "$url${numberValue}"
+
         val jsonObjectRequest = JsonObjectRequest( Request.Method.GET, apiUrl, null,
             { response ->
-                val resp = "Response: %s".format(response.toString())
-                Log.d("check:resp", resp)
+                Log.d("check:resp", "$response")
                 val even = response.getBoolean("iseven")
                 val ad = response.getString("ad")
                 setResults(even, ad)
             },
             { error ->
                 Log.d("JSON_error", "$error")
-                setResults(isEven(value))
+                setResults(isEven(numberValue))
             }
         )
         requestQueue.add(jsonObjectRequest)
-
     }
-
-
 }

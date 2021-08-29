@@ -6,4 +6,6 @@
     <string name="label_odd">odd</string>
     <string name="label_even_odd_spacer" >-</string>
     <string name="isevenapi_url">https://api.isevenapi.xyz/api/iseven/</string>
+    <string name="empty_number_value">Enter number or click RANDOMIZE first</string>
+    <string name="the_number_hint">0</string>
 </resources>
