@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">noactiv</string>
+    <string name="btn_randomize">randomize</string>
+    <string name="btn_check">check</string>
+    <string name="label_even">even</string>
+    <string name="label_odd">odd</string>
+    <string name="label_even_odd_spacer" >-</string>
+    <string name="isevenapi_url">https://api.isevenapi.xyz/api/iseven/</string>
+</resources>

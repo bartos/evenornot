@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"        >
+
+<!--        android:theme="@style/selectedResult"-->
+        <TextView
+            android:id="@+id/labelEven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_even" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_even_odd_spacer" />
+
+        <TextView
+            android:id="@+id/labelOdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_odd" />
+    </LinearLayout>
+
+        <EditText
+        android:id="@+id/theNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:imeOptions="actionDone"
+        android:inputType="numberSigned"
+        android:maxLength="6"
+        android:text="6"
+        android:textSize="90dp"
+
+            />
+
+    <Button
+        android:onClick="randomizer"
+        android:id="@+id/button_randomize"
+        android:text="@string/btn_randomize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button_check"
+        android:onClick="checkTheNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_check" />
+
+
+</LinearLayout>
